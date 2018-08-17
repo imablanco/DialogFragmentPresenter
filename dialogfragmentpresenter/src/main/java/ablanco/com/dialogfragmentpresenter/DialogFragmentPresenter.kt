@@ -38,7 +38,7 @@ class DialogFragmentPresenter internal constructor(internal val context: Fragmen
     fun show(dialogFragment: DialogFragment, tag: String? = null) {
         if (canShowDialogs) {
             dialogFragment.show(context.supportFragmentManager, tag)
-        } else {
+        } else if (!context.isFinished) {
             pendingDialogs.add(DialogFragmentPresentation(dialogFragment, tag))
         }
     }

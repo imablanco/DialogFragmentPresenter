@@ -12,7 +12,11 @@ object DialogFragmentPresenterProviders : DefaultLifecycleObserver {
 
     private val presenters: MutableList<DialogFragmentPresenter> = mutableListOf()
 
-    fun of(context: FragmentActivity): DialogFragmentPresenter {
+    fun of(context: FragmentActivity): DialogFragmentPresenter? {
+        /*Do not return if context is destroyed*/
+        if(context.isFinished){
+            return null
+        }
         /*Check if we have any presenter attached to this context*/
         var presenter = presenters.find { it.context === context }
         if (presenter == null) {
